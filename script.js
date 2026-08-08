@@ -36,13 +36,26 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify({ message: text, history })
     });
 
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Request failed");
+    const responseText = await response.text();
+    
+    if (!response.ok) {
+      console.error("API Error Status:", response.status);
+      console.error("API Response:", responseText);
+      throw new Error(`API Error ${response.status}: ${responseText.substring(0, 100)}`);
+    }
 
-    addMessage(data.reply, "ai");
-    history.push({ role: "assistant", content: data.reply });
+    try {
+      const data = JSON.parse(responseText);
+      addMessage(data.reply, "ai");
+      history.push({ role: "assistant", content: data.reply });
+    } catch (jsonError) {
+      console.error("JSON Parse Error:", jsonError);
+      console.error("Response was:", responseText.substring(0, 200));
+      throw new Error("Server returned invalid JSON");
+    }
   } catch (error) {
     addMessage("Error: " + error.message, "ai");
+    console.error("Full error:", error);
   } finally {
     typing.classList.add("hidden");
   }
