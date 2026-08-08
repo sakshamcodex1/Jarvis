@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My AI Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>🤖 My AI</h1>
+        <span class="status">● Online</span>
+      </div>
+      <button id="clearBtn" title="Clear chat">Clear</button>
+    </header>
+
+    <section id="chat" class="chat">
+      <div class="message ai">
+        <div class="avatar">🤖</div>
+        <div class="bubble">Hello! I'm your AI assistant. How can I help you?</div>
+      </div>
+    </section>
+
+    <div id="typing" class="typing hidden">AI is thinking...</div>
+
+    <form id="chatForm" class="input-area">
+      <button type="button" id="micBtn" title="Voice input">🎤</button>
+      <input id="messageInput" type="text" placeholder="Ask me anything..." autocomplete="off" required>
+      <button type="submit" id="sendBtn">➤</button>
+    </form>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
